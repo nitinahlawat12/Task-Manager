@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TaskMG</title>
+    <script
+      src="https://kit.fontawesome.com/65bffeaf89.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Full Calendar Libraries -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Model start -->
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div class="title">Task</div>
+        <button data-close-button class="close-button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <label for="imgUrl">Image Url:</label>
+          <input
+            type="text"
+            id="imgUrl"
+            name="tImgurl"
+            placeholder="https//:example.com"
+          /><br />
+          <label for="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="tTitle"
+            placeholder="Enter task title here"
+            required
+          /><br />
+          <label for="desc">Description:</label>
+          <input
+            type="text"
+            id="desc"
+            name="tDesc"
+            placeholder="Enter your task Description"
+            required
+          />
+          <label for="date">Due Date:</label>
+          <input
+            type="text"
+            id="date"
+            name="tDate"
+            placeholder="Month date year"
+            required
+          />
+          <label for="category">Category:</label>
+          <input
+            type="text"
+            id="title"
+            name="tCategory"
+            placeholder="Enter Category"
+          />
+          <button
+            class="AddNew"
+            style="
+              display: block;
+              margin: 10px auto;
+              border: none;
+              background-color: rgb(137, 138, 138);
+              color: white;
+              font-weight: bold;
+              padding: 10px;
+              border-radius: 10px;
+              cursor: pointer;
+              box-shadow: 3px 3px 3px 3px black;
+              width: 30%;
+            "
+          >
+            Add New
+          </button>
+        </form>
+      </div>
+    </div>
+    <div id="overlay"></div>
+    <!-- Modal end -->
+
+    <div class="container">
+      <!-- Header Start -->
+      <header>
+        <nav>
+          <div>
+            <a href="#" class="Logo">TaskMG</a>
+            <a href="#">Home</a>
+          </div>
+          <div class="addButton">
+            <button data-modal-target="#modal">
+              <i class="fa-sharp fa-solid fa-plus fa-beat-fade"></i>Add New
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- Header End-->
+      <!-- Sidebar Starts-->
+      <section class="sidebar">
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 30px;
+          "
+        >
+          <button class="filter-button" onclick="toggleFilterDropdown()">
+            Filter<i
+              class="fa-solid fa-caret-down"
+              style="
+                color: #6f7785;
+                margin-left: 10px;
+                transform: rotate(-90deg);
+              "
+            ></i>
+          </button>
+          <div class="filter-dropdown">
+            <button onclick="sortTasks('completed')">UnCompleted</button>
+            <button onclick="sortTasks('uncompleted')">Completed</button>
+          </div>
+          <button class="categButton" onclick="toggleCategoryDropdown()">
+            Category<i
+              class="fa-solid fa-caret-down"
+              style="
+                color: #6f7785;
+                margin-left: 10px;
+                transform: rotate(-90deg);
+              "
+            ></i>
+          </button>
+          <div class="category-dropdown">
+            <button onclick="filterTasks('all')">All</button>
+            <button onclick="filterTasks('sports')">Sports</button>
+            <button onclick="filterTasks('coding')">Coding</button>
+            <button onclick="filterTasks('reading')">Reading</button>
+            <button onclick="filterTasks('writing')">Writing</button>
+            <button onclick="filterTasks('learning')">Learning</button>
+          </div>
+          <button id="deleteAll">Delete ALL Data</button>
+          <!-- Update Modal -->
+          <form class="update_form" onsubmit="return false;">
+            <p style="display: inline">Editing Box:</p>
+            <button style="display: inline" onclick="closeEdit()">
+              &times;
+            </button>
+            <hr />
+            <label for="imgUrl">Image Url:</label>
+            <input type="text" id="imgUrl" name="Imgurl" class="img" /><br />
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="Title" class="tit" /><br />
+            <label for="desc">Description:</label>
+            <input type="text" id="desc" name="Desc" class="des" /><br />
+            <label for="date">Due Date:</label>
+            <input type="text" id="date" name="Date" class="dat" /><br />
+            <label for="category">Category:</label>
+            <input type="text" id="title" name="Category" class="categ" /><br />
+            <button type="submit" onclick="update()">Update</button>
+          </form>
+          <!-- Update Modal close-->
+        </div>
+      </section>
+      <!-- Sidebar End -->
+
+      <!-- Search Input Starts-->
+      <section>
+        <section>
+          <div class="search">
+            <form onsubmit="return false;">
+              <input type="text" class="searchInput" id="searchI" class="output"/>
+              <i class="fa-solid fa-microphone" id="startVoiceSearch"></i>
+              <button onclick="searchTasks()">
+                <label for="searchI">
+                  <i
+                    class="fa-solid fa-magnifying-glass"
+                    style="color: #7797cf"
+                  ></i>
+                </label>
+              </button>
+            </form>
+          </div>
+        </section>
+      </section>
+      <!-- Search Input Close -->
+
+      <!-- main Starts -->
+      <main class="main"></main>
+      <!-- main Ends-->
+
+      <footer>
+        <div>@Copyright Nitin</div>
+        <div>Contact no: 99999999</div>
+        <div>Email Id: abc@gmail.com</div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

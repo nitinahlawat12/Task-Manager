@@ -1,0 +1,401 @@
+body {
+    margin: 0;
+    height: 100%;
+
+}
+
+.container {
+    /* Applying a grid */
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.2fr 1.5fr 1.2fr 0.1fr;
+    grid-template-areas:
+        "nav nav nav nav"
+        "sidebar search search search"
+        "sidebar main main main"
+        "footer footer footer footer";
+    /* end =ing of grid */
+    grid-gap: 0.2rem;
+}
+
+header {
+    grid-area: nav;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+}
+
+nav div {
+    margin: 10px;
+}
+
+.Logo {
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    color: rgb(165, 214, 234);
+    margin: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.addButton button {
+    padding: 5px 10px 5px 10px;
+    font-weight: 900;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.AddNew:hover{
+    background-color: skyblue !important;
+    color: black !important;
+    transition: 1s;
+}
+
+.sidebar {
+    background-color: rgb(105, 105, 105);
+    grid-area: sidebar;
+    box-shadow: 2px 2px 2px 2px black;
+    position: relative;
+}
+
+.sidebar div button {
+    border-radius: 20px;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    box-shadow: 3px 3px 3px 3px black;
+    
+}
+
+.sidebar button:hover{
+    border: 4px dashed black;
+    background-color: antiquewhite;
+}
+
+section {
+    grid-area: search;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.searchInput {
+    width: 300px;
+    border: 0px;
+    box-shadow: 2px 2px 2px 2px grey;
+    font-size: 20px;
+    border-radius: 10px;
+    opacity: 0;
+    width: 0;
+    transition: width 0.58s ease-in-out, opacity 0.58s ease-in-out;
+    padding: 10px;
+}
+
+/* Show the search input when it has focus */
+.searchInput.active {
+    width: 200px; /* Adjust the width as needed */
+    opacity: 1;
+  }
+
+.search button {
+    border-radius: 10px;
+    width: 100px;
+    margin-left: 10px;
+    border-color: grey;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.main {
+    grid-area: main;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 10px;
+    height: 650px;
+    overflow: scroll;
+    
+}
+
+.main div {
+    margin: 5px auto;
+    border-radius: 20px;
+    transition-duration: 0.7s;
+}
+
+.main div:hover {
+    background-color: rgb(48, 47, 47);
+    color: aliceblue;
+    transition-duration: 0.7s;
+}
+
+.main div img {
+    border-radius: 10px;
+}
+
+.modal {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+}
+
+.modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.modal-header .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-header .close-button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 10px 15px;
+}
+
+.modal-body form {
+    margin: auto;
+    padding: 10px;
+    font-family: sans-serif;
+    box-shadow: 0px 0px 10px 2px #ccc;
+}
+
+.modal-body form label {
+    display: block;
+    font-weight: 700;
+}
+
+.modal-body form input {
+    font-size: 15px;
+    border-radius: 10px;
+    width: 55%;
+}
+
+.update_form {
+    display: none;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    transition-duration: 3s;
+    position: fixed;
+    bottom: 30px;
+    width: 18%;
+    align-items: center;
+}
+
+.update_form input {
+    width: 80%;
+    margin: 5px;
+}
+
+.main div img {
+    width: 100%;
+    /* Set the image width to 100% of its container */
+    height: auto;
+    /* Allow the image to maintain its aspect ratio */
+    display: block;
+    /* Remove any inline spacing */
+}
+
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+footer {
+    grid-area: footer;
+    background-color: #262323;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    
+}
+
+footer div {
+    border-right: 3px solid white;
+}
+
+/* Active category button style */
+.category-dropdown button.active {
+    background-color: #0056b3;
+}
+
+/* Style for the category button dropdown */
+.category-dropdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    display: none;
+}
+
+.category-dropdown button {
+    background-color: #282c30;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.category-dropdown button:hover {
+    background-color: #0056b3;
+    border: none;
+}
+
+.filter-dropdown button:hover {
+    background-color: #0056b3;
+    border: none;
+}
+
+.filter-dropdown button {
+    background-color: #282c30;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.filter-dropdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    display: none;
+}
+
+.task-container p{
+    box-shadow: 2px 0px 2px 0px black;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+.task-container:hover p{
+    padding: 5px 10px;
+    box-shadow: 2px 0px 2px 0px white;
+    border-radius: 10px;
+}
+.task-container.deadline-over {
+    position: relative;
+}
+
+.task-container.deadline-over::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.task-container h2.deadline-message {
+    position: absolute;
+    top: 35%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    border: 3px solid white;
+    padding: 20px;
+    padding-left: 70px;
+    padding-right: 60px;
+}
+
+  
+/* Conguratulations animation */
+.completed-animation {
+    animation: congratulation 2s ease-in-out;
+  }
+  
+  @keyframes congratulation {
+    0%, 100% {
+      transform: scale(1);
+    }
+    25%, 75% {
+      transform: scale(0.7);
+    }
+    50% {
+      transform: scale(0.8);
+    }
+  }
+
+@media screen and (max-width:610px) {
+    .task-container h2.deadline-message {
+        position: absolute;
+        top: 30%;
+        left: 20%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 20px;
+        text-align: center;
+        border: 3px solid white;
+        padding: 10px;
+        
+    }
+    .task-container img{
+        height: 200px !important;
+    }
+    .task-container{
+        width: 300px !important;
+        margin-bottom: 30px !important;
+        box-shadow: 5px 5px 5px 5px grey !important;
+    }
+
+}
